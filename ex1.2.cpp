@@ -1,7 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <string>
-//#include<bits/stdc++.h>
 using namespace std;
 
 void encryptText(string, string);
@@ -57,6 +55,7 @@ void encryptText(string text, string password) {
         	// Convert to letters
         	c += 'A';
  
+ 			// Concatenate the next character
         	result.push_back(c);
 		} else {
 			result += ' ';
@@ -79,12 +78,15 @@ void decryptText(string text, string password) {
         	// Convert to letters
         	c += 'A';
         	
+        	// Concatenate the next character
         	result.push_back(c);
 		} else {
 			result += ' ';
 		}
         
     }
+    // Convert the text to lower case
+    transform(result.begin(), result.end(), result.begin(), ::tolower);
 	
 	cout << "\nDecrypted text: " << result << endl;
 }
@@ -94,9 +96,6 @@ string getText() {
 	
 	cout << "Please enter the text: ";
 	getline(cin >> ws, text);
-	
-	// Cut out all of the white spaces
-	//text.erase(remove(text.begin(), text.end(), ' '), text.end());
 	
 	// Convert the text to upper case
 	transform(text.begin(), text.end(), text.begin(), ::toupper);
@@ -110,19 +109,18 @@ string getPassword(string text) {
 	cout << "Please enter the password: ";
 	getline(cin >> ws, password);
 	
-	// Cut out all of the white spaces
-	//password.erase(remove(password.begin(), password.end(), ' '), password.end());
-	
 	// Convert the text to upper case
 	transform(password.begin(), password.end(), password.begin(), ::toupper);
 	
 	// Generate a password with the same size as the text 
 	int j = text.size();
     for (int i = 0; ; i++) {
+    	// Add a space if the text has a space
     	if (text[password.size()] == ' ') password += ' ';
         if (j == i) i = 0;
         if (password.size() == text.size()) break;
         if(password[i] == ' ') {
+        	// If the character to be repeated is a space, repeat the next character and not the space
         	password.push_back(password[i + 1]);
         	i++;
 		} else {
@@ -130,7 +128,7 @@ string getPassword(string text) {
 		}
         
     }
-    //cout << password << endl;
+
 	return password;
 } 
 
