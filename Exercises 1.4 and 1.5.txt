@@ -1,0 +1,14 @@
+Exercise 1.4
+Variable ia2 and method ma1 cannot be accessed by class CB, because they were declared
+as private in CA.
+
+Exercise 1.5
+The output will be:
+
+obj1: 10
+obj2: 20
+obj2: 20
+obj1: 42
+obj2: 20
+obj2: 999
+j = 42
