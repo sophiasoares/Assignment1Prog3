@@ -25,7 +25,7 @@ int main() {
 		
 		// Finish program
 		if(num == 3) {
-			cout << "\n--- You have finished this program ---";
+			cout << "\n--- You have finished this program ---\n";
 			break;
 		} 
 		
@@ -48,13 +48,20 @@ void encryptText(string text, string password) {
 	string result;
 	
 	for (int j = 0; j < text.size(); ++j) {
-        // Convert in range 0-25
-        char c = (text[j] + password[j]) %26;
+		
+		if(text[j] != ' ') {
+			
+			// Convert in range 0-25
+        	char c = (text[j] + password[j]) %26;
  
-        // Convert into letters
-        c += 'A';
+        	// Convert to letters
+        	c += 'A';
  
-        result.push_back(c);
+        	result.push_back(c);
+		} else {
+			result += ' ';
+		}
+        
     }
 	
 	cout << "\nEncrypted text: " << result << endl;
@@ -64,12 +71,19 @@ void decryptText(string text, string password) {
 	string result;
 
 	for (int j = 0 ; j < text.size(); ++j) {
-        // Convert in range 0-25
-        char c = (text[j] - password[j] + 26) %26;
+		
+		if(text[j] != ' ') {
+			// Convert in range 0-25
+        	char c = (text[j] - password[j] + 26) %26;
  
-        // Convert into letters
-        c += 'A';
-        result.push_back(c);
+        	// Convert to letters
+        	c += 'A';
+        	
+        	result.push_back(c);
+		} else {
+			result += ' ';
+		}
+        
     }
 	
 	cout << "\nDecrypted text: " << result << endl;
@@ -82,9 +96,9 @@ string getText() {
 	getline(cin >> ws, text);
 	
 	// Cut out all of the white spaces
-	text.erase(remove(text.begin(), text.end(), ' '), text.end());
+	//text.erase(remove(text.begin(), text.end(), ' '), text.end());
 	
-	// Convert the text to uppercase
+	// Convert the text to upper case
 	transform(text.begin(), text.end(), text.begin(), ::toupper);
 	
 	return text;
@@ -97,20 +111,26 @@ string getPassword(string text) {
 	getline(cin >> ws, password);
 	
 	// Cut out all of the white spaces
-	password.erase(remove(password.begin(), password.end(), ' '), password.end());
+	//password.erase(remove(password.begin(), password.end(), ' '), password.end());
 	
-	// Convert the text to uppercase
+	// Convert the text to upper case
 	transform(password.begin(), password.end(), password.begin(), ::toupper);
 	
 	// Generate a password with the same size as the text 
 	int j = text.size();
     for (int i = 0; ; i++) {
-        if (j == i)
-            i = 0;
-        if (password.size() == text.size())
-            break;
-        password.push_back(password[i]);
+    	if (text[password.size()] == ' ') password += ' ';
+        if (j == i) i = 0;
+        if (password.size() == text.size()) break;
+        if(password[i] == ' ') {
+        	password.push_back(password[i + 1]);
+        	i++;
+		} else {
+			password.push_back(password[i]);
+		}
+        
     }
+    //cout << password << endl;
 	return password;
 } 
 
