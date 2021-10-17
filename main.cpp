@@ -1,5 +1,5 @@
 /**
- * Contains the main method to run the project
+ * Contains the main method to run the project and a menu for user interaction
  * @author Sophia Soares Silva
  * @version 1.0
  * @date 17.10.2021
